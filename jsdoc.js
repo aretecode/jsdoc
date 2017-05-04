@@ -9,8 +9,6 @@
 
 // initialize the environment for the current JavaScript VM
 (function(args) {
-    'use strict';
-
     var path;
 
     if (args[0] && typeof args[0] === 'object') {
@@ -25,14 +23,14 @@
         require = require('requizzle')({
             requirePaths: {
                 before: [path.join(__dirname, 'lib')],
-                after: [path.join(__dirname, 'node_modules')]
+                after: [path.join(__dirname, 'node_modules')],
             },
-            infect: true
+            infect: true,
         });
     }
 
     require('./lib/jsdoc/util/runtime').initialize(args);
-})( Array.prototype.slice.call(arguments, 0) );
+})(Array.prototype.slice.call(arguments, 0));
 
 /**
  * Data about the environment in which JSDoc is running, including the configuration settings that
@@ -44,7 +42,6 @@
  * @name env
  */
 global.env = (function() {
-    'use strict';
     return require('./lib/jsdoc/env');
 })();
 
@@ -57,13 +54,10 @@ global.env = (function() {
  * @name app
  */
 global.app = (function() {
-    'use strict';
     return require('./lib/jsdoc/app');
 })();
 
 (function() {
-    'use strict';
-
     var env = global.env;
     var logger = require('./lib/jsdoc/util/logger');
     var runtime = require('./lib/jsdoc/util/runtime');
@@ -74,8 +68,7 @@ global.app = (function() {
         cli.exit(errorCode || 0);
     }
 
-    cli.setVersionInfo()
-        .loadConfig();
+    cli.setVersionInfo().loadConfig();
 
     if (!env.opts.test) {
         cli.configureLogger();
